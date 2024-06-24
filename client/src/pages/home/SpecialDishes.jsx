@@ -2,7 +2,36 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
 import { useEffect, useRef, useState } from 'react'
-import Card from './Card'
+import Card from '../../components/Card'
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
+
+// const PrevArrow = (props) => {
+//   const { className, style, onClick } = props
+
+//   return (
+//     <div
+//       className={className}
+//       style={{ ...style, display: 'block', background: 'red' }}
+//       onClick={onClick}
+//     >
+//       Prev
+//     </div>
+//   )
+// }
+
+// const NextArrow = (props) => {
+//   const { className, style, onClick } = props
+
+//   return (
+//     <div
+//       className={className}
+//       style={{ ...style, display: 'block', background: 'green' }}
+//       onClick={onClick}
+//     >
+//       Next
+//     </div>
+//   )
+// }
 
 const settings = {
   dots: true,
@@ -52,13 +81,32 @@ const SpecialDishes = () => {
   }, [])
 
   return (
-    <div className='section-container my-20'>
+    <div className='max-w-screen-2xl container mx-auto xl:px-24 px-4 my-20 relative'>
       <div className='text-left'>
         <p className='subtitle'>Special Dishes</p>
         <h3 className='title md:w-[520px]'>Standout Dishes From Our Menus</h3>
       </div>
 
-      <Slider {...settings}>
+      <div className='md:absolute right-3 top-8 mb-10 md:mr-24'>
+        <button
+          className='btn p-2 rounded-full ml-5'
+          onClick={() => slider?.current?.slickPrev()}
+        >
+          <FaAngleLeft className='w-8 h-8 p-1' />
+        </button>
+        <button
+          className='btn p-2 rounded-full ml-5 bg-green'
+          onClick={() => slider?.current?.slickNext()}
+        >
+          <FaAngleRight className='w-8 h-8 p-1' />
+        </button>
+      </div>
+
+      <Slider
+        ref={slider}
+        {...settings}
+        className='overflow-hidden mt-10 space-x-5'
+      >
         {recipes.map((recipe, i) => (
           <Card key={i} item={recipe} />
         ))}
