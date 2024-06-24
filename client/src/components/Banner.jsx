@@ -17,27 +17,32 @@ const Banner = () => {
                   <input
                     type='radio'
                     name='rating-2'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                   />
                   <input
                     type='radio'
                     name='rating-2'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                   />
                   <input
                     type='radio'
                     name='rating-2'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                   />
                   <input
                     type='radio'
                     name='rating-2'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                     checked
                   />
                   <input
                     type='radio'
                     name='rating-2'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                   />
                 </div>
@@ -56,26 +61,31 @@ const Banner = () => {
                   <input
                     type='radio'
                     name='rating-5'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                   />
                   <input
                     type='radio'
                     name='rating-5'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                   />
                   <input
                     type='radio'
                     name='rating-5'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                   />
                   <input
                     type='radio'
                     name='rating-5'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                   />
                   <input
                     type='radio'
                     name='rating-5'
+                    readOnly
                     className='mask mask-star-2 bg-yellow-500'
                     checked
                   />
