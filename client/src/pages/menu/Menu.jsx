@@ -159,7 +159,7 @@ const Menu = () => {
               name='sort'
               id='sort'
               onChange={(e) => handleSortChange(e.target.value)}
-              className='bg-green text-white px-2 py-1 rounded-md'
+              className='bg-green text-white px-2 py-1 rounded-md cursor-pointer'
               value={sortOption}
             >
               <option value='default'>Default</option>

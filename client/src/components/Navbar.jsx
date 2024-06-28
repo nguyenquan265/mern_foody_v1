@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom'
 import NavItems from './NavItems'
 import logo from '/logo.svg'
-import { TbPhoneCall } from 'react-icons/tb'
-import { useEffect, useState } from 'react'
+import { FaUser } from 'react-icons/fa'
+import { useContext, useEffect, useState } from 'react'
+import Modal from './Modal'
+import { AuthContext } from '../context/AuthProvider'
+import Profile from './Profile'
 
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false)
+  const { user } = useContext(AuthContext)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,9 +117,21 @@ const Navbar = () => {
             </div>
           </div>
           {/* Btn */}
-          <a className='btn bg-green rounded-full px-6 text-white flex items-center gap-2'>
-            <TbPhoneCall /> Contact
-          </a>
+          {user ? (
+            <Profile user={user} />
+          ) : (
+            <>
+              <button
+                className='btn bg-green rounded-full px-6 text-white flex items-center gap-2'
+                onClick={() =>
+                  document.getElementById('my_modal_5').showModal()
+                }
+              >
+                <FaUser /> Login
+              </button>
+              <Modal />
+            </>
+          )}
         </div>
       </div>
     </header>
