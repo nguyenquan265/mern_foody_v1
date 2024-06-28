@@ -12,7 +12,7 @@ const UpdateProfile = () => {
 
     updateUserProfile(name, photoURL)
       .then(() => {
-        alert('Profile updated successfully')
+        window.location.reload()
       })
       .catch((error) => {
         console.log(error)
@@ -30,22 +30,32 @@ const UpdateProfile = () => {
             <input
               type='text'
               {...register('name')}
-              value={user.displayName}
+              // value={user.displayName}
+              placeholder={`${user.displayName}`}
               className='input input-bordered'
               required
             />
           </div>
+
           <div className='form-control'>
             <label className='label'>
               <span className='label-text'>Upload Photo</span>
             </label>
-            <input
+            {/* <input
               type='file'
+              accept='image/*'
               {...register('photoURL')}
               className='file-input w-full mt-1'
+            /> */}
+            <input
+              type='text'
+              {...register('photoURL')}
+              placeholder='photo url'
+              className='input input-bordered'
+              // required
             />
-            {/* <input type="text" {...register("photoURL")} placeholder="photo url" className="input input-bordered" required /> */}
           </div>
+
           <div className='form-control mt-6'>
             <input
               type='submit'
