@@ -1,5 +1,5 @@
 - backend
-  npm i cross-env express cors cookie-parser bcryptjs jsonwebtoken validator mongoose dotenv nodemailer cloudinary multer
+  npm i cross-env express cors cookie-parser bcryptjs jsonwebtoken validator mongoose dotenv nodemailer cloudinary multer cron
   npm i --save-dev nodemon
 
 - frontend

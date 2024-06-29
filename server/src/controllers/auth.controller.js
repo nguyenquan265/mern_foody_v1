@@ -1,23 +1,14 @@
-/* eslint-disable no-unused-vars */
-import { sign, verify } from 'jsonwebtoken'
 import { env } from '~/config/env'
 import { User } from '~/models/user.model'
 import { ApiError } from '~/utils/ApiError'
 import Email from '~/utils/Email'
 import { catchAsync } from '~/utils/catchAsync'
 import crypto from 'crypto'
-
-const signAccessToken = (id) => {
-  return sign({ id }, env.jwt.ACCESS_TOKEN_SECRET, {
-    expiresIn: env.jwt.ACCESS_TOKEN_EXPIRY
-  })
-}
-
-const signRefreshToken = (id) => {
-  return sign({ id }, env.jwt.REFRESH_TOKEN_SECRET, {
-    expiresIn: env.jwt.REFRESH_TOKEN_EXPIRY
-  })
-}
+import {
+  signAccessToken,
+  signRefreshToken,
+  verifyToken
+} from '~/utils/generateToken'
 
 export const register = catchAsync(async (req, res, next) => {
   const { name, email, password, passwordConfirm } = req.body
@@ -26,7 +17,11 @@ export const register = catchAsync(async (req, res, next) => {
     throw new ApiError(400, 'Please provide all fields')
   }
 
-  const user = await User.create({ name, email, password, passwordConfirm })
+  if (password !== passwordConfirm) {
+    throw new ApiError(400, 'Password and password confirm do not match')
+  }
+
+  const user = await User.create({ name, email, password })
 
   const { password: pass, ...rest } = user._doc
 
@@ -65,9 +60,15 @@ export const login = catchAsync(async (req, res, next) => {
 })
 
 export const logout = catchAsync(async (req, res, next) => {
-  res.clearCookie('refreshToken')
-
-  res.status(200).json({ status: 'success' })
+  res
+    .status(200)
+    .cookie('refreshToken', 'logout', {
+      expire: new Date(Date.now()),
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none'
+    })
+    .json({ status: 'success', message: 'Logout successfully' })
 })
 
 export const refreshToken = catchAsync(async (req, res, next) => {
@@ -77,7 +78,7 @@ export const refreshToken = catchAsync(async (req, res, next) => {
     throw new ApiError(401, 'RefreshToken not found')
   }
 
-  const decoded = verify(refreshToken, env.jwt.REFRESH_TOKEN_SECRET)
+  const decoded = verifyToken(refreshToken, env.jwt.REFRESH_TOKEN_SECRET)
 
   const user = await User.findById(decoded.id)
 

@@ -16,28 +16,16 @@ const userSchema = new mongoose.Schema({
     validate: [validator.isEmail, 'Please provide a valid email']
   },
   photo: {
-    type: String,
-    default: 'default.jpg'
+    type: String
   },
   photo_publicId: {
-    type: String,
-    default: ''
+    type: String
   },
   password: {
     type: String,
     required: [true, 'Password is required'],
-    minlength: 8,
+    minlength: 6,
     select: false
-  },
-  passwordConfirm: {
-    type: String,
-    required: [true, 'Please confirm your password'],
-    validate: {
-      validator: function (el) {
-        return el === this.password
-      },
-      message: 'Passwords are not the same'
-    }
   },
   passwordChangedAt: Date,
   role: {

@@ -14,11 +14,12 @@ import {
   updateUser,
   deleteUser,
   getMe,
-  updateMe,
-  updatePassword
+  updatePassword,
+  updateMe_v1,
+  updateMe_v2
 } from '~/controllers/user.controller'
 import { protect, restrictTo } from '~/middlewares/auth.middleware'
-import { upload } from '~/utils/cloudinary'
+import { upload } from '~/utils/uploadImage'
 
 const router = Router()
 
@@ -34,7 +35,8 @@ router.route('/resetPassword').patch(resetPassword)
 router.use(protect)
 router.route('/me').get(getMe, getUser)
 router.route('/updateMyPassword').patch(updatePassword)
-router.route('/updateMe').patch(upload.single('photo'), updateMe)
+router.route('/updateMe-v1').patch(upload.single('photo'), updateMe_v1)
+router.route('/updateMe-v2').patch(updateMe_v2)
 
 // User routes
 router.use(restrictTo('admin'))
