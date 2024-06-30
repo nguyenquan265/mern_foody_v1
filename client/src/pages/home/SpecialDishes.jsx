@@ -5,34 +5,6 @@ import { useEffect, useRef, useState } from 'react'
 import Card from '../../components/Card'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 
-// const PrevArrow = (props) => {
-//   const { className, style, onClick } = props
-
-//   return (
-//     <div
-//       className={className}
-//       style={{ ...style, display: 'block', background: 'red' }}
-//       onClick={onClick}
-//     >
-//       Prev
-//     </div>
-//   )
-// }
-
-// const NextArrow = (props) => {
-//   const { className, style, onClick } = props
-
-//   return (
-//     <div
-//       className={className}
-//       style={{ ...style, display: 'block', background: 'green' }}
-//       onClick={onClick}
-//     >
-//       Next
-//     </div>
-//   )
-// }
-
 const settings = {
   dots: true,
   infinite: false,
@@ -73,10 +45,10 @@ const SpecialDishes = () => {
   const slider = useRef(null)
 
   useEffect(() => {
-    fetch('/menu.json')
+    fetch('http://localhost:8000/api/v1/menus')
       .then((res) => res.json())
       .then((data) =>
-        setRecipes(data.filter((recipe) => recipe.category === 'popular'))
+        setRecipes(data.menus.filter((recipe) => recipe.category === 'popular'))
       )
   }, [])
 

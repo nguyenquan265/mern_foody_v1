@@ -65,11 +65,12 @@ const Menu = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/menu.json')
+        const res = await fetch('http://localhost:8000/api/v1/menus')
         const data = await res.json()
+        console.log(data)
 
-        setMenu(data)
-        setFilteredItems(data)
+        setMenu(data.menus)
+        setFilteredItems(data.menus)
       } catch (err) {
         console.log(err)
       }
