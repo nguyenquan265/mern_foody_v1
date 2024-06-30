@@ -93,7 +93,8 @@ const Navbar = () => {
             </svg>
           </button>
           {/* Cart */}
-          <div
+          <Link
+            to='/cart'
             tabIndex={0}
             role='button'
             className='btn btn-ghost btn-circle mr-3 hidden lg:flex items-center justify-center'
@@ -115,7 +116,7 @@ const Navbar = () => {
               </svg>
               <span className='badge badge-sm indicator-item'>8</span>
             </div>
-          </div>
+          </Link>
           {/* Btn */}
           {user ? (
             <Profile user={user} />

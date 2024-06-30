@@ -1,18 +1,39 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Card from '../../components/Card'
 import { FaFilter } from 'react-icons/fa'
+import customAxios from '../../utils/customAxios'
+import { useQuery } from '@tanstack/react-query'
 
 const Menu = () => {
-  const [menu, setMenu] = useState([])
   const [filteredItems, setFilteredItems] = useState([])
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [sortOption, setSortOption] = useState('default')
   const [page, setPage] = useState(1)
+
   const itemsPerPage = 9
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage)
   const indexOfLastItem = page * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem)
+
+  const { data: menu, isLoading } = useQuery({
+    queryKey: ['foods'],
+    queryFn: async () => {
+      try {
+        const res = await customAxios('/foods')
+
+        setFilteredItems(
+          res.data.foods.sort((a, b) => a.name.localeCompare(b.name))
+        )
+
+        return res.data.foods
+      } catch (error) {
+        throw new Error(error)
+      }
+    }
+  })
+
+  if (isLoading) return <p>Loading...</p>
 
   const paginate = (pageNumber) => {
     setPage(pageNumber)
@@ -61,23 +82,6 @@ const Menu = () => {
 
     setFilteredItems(sortedItems)
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('http://localhost:8000/api/v1/menus')
-        const data = await res.json()
-        console.log(data)
-
-        setMenu(data.menus)
-        setFilteredItems(data.menus)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
-    fetchData()
-  }, [])
 
   return (
     <div>

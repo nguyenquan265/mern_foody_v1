@@ -1,9 +1,11 @@
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import Card from '../../components/Card'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
+import customAxios from '../../utils/customAxios'
+import { useQuery } from '@tanstack/react-query'
 
 const settings = {
   dots: true,
@@ -41,16 +43,21 @@ const settings = {
 }
 
 const SpecialDishes = () => {
-  const [recipes, setRecipes] = useState([])
   const slider = useRef(null)
+  const { data: recipes, isLoading } = useQuery({
+    queryKey: ['foods'],
+    queryFn: async () => {
+      try {
+        const res = await customAxios('/foods')
 
-  useEffect(() => {
-    fetch('http://localhost:8000/api/v1/menus')
-      .then((res) => res.json())
-      .then((data) =>
-        setRecipes(data.menus.filter((recipe) => recipe.category === 'popular'))
-      )
-  }, [])
+        return res.data.foods
+      } catch (error) {
+        throw new Error(error)
+      }
+    }
+  })
+
+  if (isLoading) return <p>Loading...</p>
 
   return (
     <div className='max-w-screen-2xl container mx-auto xl:px-24 px-4 my-20 relative'>
@@ -79,9 +86,11 @@ const SpecialDishes = () => {
         {...settings}
         className='overflow-hidden mt-10 space-x-5'
       >
-        {recipes.map((recipe, i) => (
-          <Card key={i} item={recipe} />
-        ))}
+        {recipes
+          .filter((recipe) => recipe.category === 'popular')
+          .map((recipe, i) => (
+            <Card key={i} item={recipe} />
+          ))}
       </Slider>
     </div>
   )

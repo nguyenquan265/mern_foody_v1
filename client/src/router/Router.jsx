@@ -10,6 +10,7 @@ import Signup from '../pages/auth/Signup'
 import Login from '../pages/auth/Login'
 import ProtectedRoute from './ProtectedRoute'
 import UpdateProfile from '../pages/dashboard/UpdateProfile'
+import Cart from '../pages/cart/Cart'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/update-profile',
         element: <ProtectedRoute children={<UpdateProfile />} />
+      },
+      {
+        path: '/cart',
+        element: <ProtectedRoute children={<Cart />} />
       }
     ]
   },

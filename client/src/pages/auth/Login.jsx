@@ -99,13 +99,6 @@ const Login = () => {
           >
             ✕
           </Link>
-
-          <p className='text-center my-2'>
-            Don't have an account?
-            <Link to='/signup' className='underline text-red ml-1'>
-              Signup
-            </Link>
-          </p>
         </form>
         <div className='text-center space-x-3 mb-5'>
           <button
