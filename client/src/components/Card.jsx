@@ -4,6 +4,7 @@ import { FaHeart } from 'react-icons/fa'
 import { AuthContext } from '../context/AuthProvider'
 import toast from 'react-hot-toast'
 import customAxios from '../utils/customAxios'
+import useCart from '../hooks/useCart'
 
 const Card = ({ item }) => {
   const { _id, image, name, recipe, price } = item
@@ -11,6 +12,7 @@ const Card = ({ item }) => {
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation()
+  const { refetch } = useCart()
 
   const handleHeartClick = () => {
     setIsHeartFilled(!isHeartFilled)
@@ -29,9 +31,10 @@ const Card = ({ item }) => {
       }
 
       try {
-        const res = await customAxios.post('/carts', cartItem)
+        await customAxios.post('/carts', cartItem)
 
         toast.success('Item added to cart')
+        refetch()
       } catch (error) {
         console.log(error)
         toast.error(error?.response?.data?.message || 'Something went wrong')

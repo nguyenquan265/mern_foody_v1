@@ -27,6 +27,8 @@ const cartSchema = new mongoose.Schema({
       }
     }
   ],
+  totalItems: Number,
+  totalPrice: Number,
   userEmail: {
     type: String,
     required: true

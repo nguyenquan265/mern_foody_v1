@@ -6,7 +6,7 @@ import customAxios from '../utils/customAxios'
 const useCart = () => {
   const { user } = useContext(AuthContext)
 
-  const { data, refetch, isLoading } = useQuery({
+  const { data: cart, refetch } = useQuery({
     queryKey: ['cart', user?.email],
     queryFn: async () => {
       try {
@@ -19,7 +19,7 @@ const useCart = () => {
     }
   })
 
-  return { data, refetch, isLoading }
+  return { cart, refetch }
 }
 
 export default useCart
