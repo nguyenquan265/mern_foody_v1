@@ -9,22 +9,6 @@ const NavItems = () => {
       <li>
         <Link to='/menu'>Menu</Link>
       </li>
-      {/* <li>
-        <details>
-          <summary>Menu</summary>
-          <ul className='p-2'>
-            <li>
-              <a>All</a>
-            </li>
-            <li>
-              <a>Salad</a>
-            </li>
-            <li>
-              <a>Pizza</a>
-            </li>
-          </ul>
-        </details>
-      </li> */}
       <li>
         <details>
           <summary>Services</summary>
