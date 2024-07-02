@@ -10,7 +10,7 @@ import useCart from '../hooks/useCart'
 
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false)
-  const { user } = useContext(AuthContext)
+  const { user, loading } = useContext(AuthContext)
   const { cart } = useCart()
 
   useEffect(() => {
@@ -117,12 +117,14 @@ const Navbar = () => {
                 />
               </svg>
               <span className='badge badge-sm indicator-item'>
-                {cart?.totalItems || 0}
+                {(!loading && cart?.totalItems) || 0}
               </span>
             </div>
           </Link>
           {/* Btn */}
-          {user ? (
+          {loading ? (
+            <span className='loading loading-spinner loading-xs'></span>
+          ) : user ? (
             <Profile user={user} />
           ) : (
             <>

@@ -11,6 +11,9 @@ import Login from '../pages/auth/Login'
 import ProtectedRoute from './ProtectedRoute'
 import UpdateProfile from '../pages/dashboard/UpdateProfile'
 import Cart from '../pages/cart/Cart'
+import DashboardLayout from '../layout/DashboardLayout'
+import Dashboard from '../pages/dashboard/admin/Dashboard'
+import Users from '../pages/dashboard/admin/Users'
 
 const router = createBrowserRouter([
   {
@@ -19,22 +22,36 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: '/',
+        path: '',
         element: <Home />,
         errorElement: <ErrorElement />
       },
       {
-        path: '/menu',
+        path: 'menu',
         element: <Menu />,
         errorElement: <ErrorElement />
       },
       {
-        path: '/update-profile',
+        path: 'update-profile',
         element: <ProtectedRoute children={<UpdateProfile />} />
       },
       {
-        path: '/cart',
+        path: 'cart',
         element: <ProtectedRoute children={<Cart />} />
+      }
+    ]
+  },
+  {
+    path: '/dashboard',
+    element: <ProtectedRoute children={<DashboardLayout />} />,
+    children: [
+      {
+        path: '',
+        element: <Dashboard />
+      },
+      {
+        path: 'users',
+        element: <Users />
       }
     ]
   },

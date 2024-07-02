@@ -33,7 +33,12 @@ const Menu = () => {
     }
   })
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading)
+    return (
+      <div className='h-screen w-full flex items-center justify-center'>
+        <span className='loading loading-dots loading-lg'></span>
+      </div>
+    )
 
   const paginate = (pageNumber) => {
     setPage(pageNumber)

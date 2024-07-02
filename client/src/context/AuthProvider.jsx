@@ -52,10 +52,11 @@ const AuthProvider = ({ children }) => {
     const unsubcribed = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser)
-        setLoading(false)
       } else {
-        setLoading(false)
+        // do something
       }
+
+      setLoading(false)
     })
 
     return () => {

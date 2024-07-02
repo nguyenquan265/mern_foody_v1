@@ -5,14 +5,14 @@ import { useContext } from 'react'
 import { AuthContext } from '../context/AuthProvider'
 
 const Main = () => {
-  const { loading } = useContext(AuthContext)
+  // const { loading } = useContext(AuthContext)
 
-  if (loading)
-    return (
-      <div className='h-screen w-full flex items-center justify-center'>
-        <span className='loading loading-dots loading-lg'></span>
-      </div>
-    )
+  // if (loading)
+  //   return (
+  //     <div className='h-screen w-full flex items-center justify-center'>
+  //       <span className='loading loading-dots loading-lg'></span>
+  //     </div>
+  //   )
 
   return (
     <div className='bg-primaryBG'>

@@ -57,7 +57,12 @@ const SpecialDishes = () => {
     }
   })
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading)
+    return (
+      <div className='h-screen w-full flex items-center justify-center'>
+        <span className='loading loading-dots loading-lg'></span>
+      </div>
+    )
 
   return (
     <div className='max-w-screen-2xl container mx-auto xl:px-24 px-4 my-20 relative'>
